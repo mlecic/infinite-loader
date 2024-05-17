@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 const PHOTOS_URL = "https://jsonplaceholder.typicode.com";
 
@@ -18,10 +19,7 @@ export class PhotosService {
 
   constructor(private http: HttpClient) { }
 
-  getPhotos(page: number, limit: number) {
-    this.http.get<Photo[]>(`${PHOTOS_URL}/albums/1/photos?_page=${page}&_limit=${limit}`, { params: {}, observe: 'response' }).subscribe(response => {
-      console.log(response);
-      console.log(response.headers.get('link'))
-    })
+  getPhotos(page: number, limit: number): Observable<HttpResponse<Photo[]>> {
+    return this.http.get<Photo[]>(`${PHOTOS_URL}/albums/1/photos?_page=${page}&_limit=${limit}`, { observe: 'response' });
   }
 }

@@ -1,1 +1,7 @@
-<p>list works!</p>
+<div *ngFor="let photo of photos">
+  <p>Album ID: {{ photo.albumId }}</p>
+  <p>ID: {{ photo.id }}</p>
+  <p>Title: {{ photo.title }}</p>
+  <img [src]="photo.thumbnailUrl">
+  <hr >
+</div>
