@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PhotosService, Photo } from '../photos.service';
 
@@ -14,9 +14,24 @@ export class ListComponent implements OnInit {
   constructor(private router: Router, private photosService: PhotosService) {}
 
   ngOnInit(): void {
-    this.photosService.getPhotos(1, 10).subscribe(response => {
-      this.photos = response.body as Photo[];
-    });
+    // Get initial photos on page load
+    this.photosService.getPhotos();
+
+    // Subscribe to new photos data
+    this.photosService.photos$.subscribe(photos => {
+      this.photos = photos;
+    })
+  }
+
+  /**
+   * Load more photos when scrolled to the bottom
+   */
+  @HostListener('window:scroll', ['$event'])
+  onScroll(): void {
+    const marginsOffset = 50;
+    if ((window.innerHeight + window.scrollY - marginsOffset) >= document.body.offsetHeight) {
+      this.photosService.getPhotos();
+    }
   }
 
   goBack() {
