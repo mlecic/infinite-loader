@@ -1,14 +1,23 @@
-h1 {
+.title {
+  display: flex;
+  justify-content: space-between;
   margin: 25px;
   padding: 0;
+
+  
+  button {
+    background-color: darkcyan;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5dpx 20px;
+    cursor: pointer;
+  }
 }
 
-h3 {
-  margin: 15px 0 20px 0;
-}
 
 ul {
-  width: 60vw;
+  width: 60%;
   margin: 25px;
   padding: 0;
 }
@@ -24,6 +33,10 @@ li {
   margin-bottom: 25px;
   box-shadow: 3px 2px 3px grey;
 
+  h3 {
+    margin: 15px 0 20px 0;
+  }
+
   img {
       width: 100px;
       border-radius: 10px;
@@ -33,4 +46,11 @@ li {
     flex: 1 1 200px;
   }
 
+}
+
+@media screen and (max-width: 960px) {
+  ul {
+    width: calc(100% - 30px);
+    margin: 15px;
+  }
 }
