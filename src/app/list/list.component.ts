@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PhotosService, Photo } from '../photos.service';
 
+const MARGINS_OFFSET = 50;
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -28,8 +29,7 @@ export class ListComponent implements OnInit {
    */
   @HostListener('window:scroll', ['$event'])
   onScroll(): void {
-    const marginsOffset = 50;
-    if ((window.innerHeight + window.scrollY - marginsOffset) >= document.body.offsetHeight) {
+    if ((window.innerHeight + window.scrollY - MARGINS_OFFSET) >= document.body.offsetHeight) {
       this.photosService.getPhotos();
     }
   }
