@@ -1,6 +1,6 @@
 .title {
   display: flex;
-  justify-content: space-between;
+  gap: 50px;
   margin: 25px;
   padding: 0;
 }
@@ -12,8 +12,15 @@ button {
   border-radius: 5px;
   padding: 5px 20px;
   cursor: pointer;
-}
 
+  &:hover {
+    background-color: goldenrod;
+  }
+  &:disabled {
+    background-color: lightgrey;
+    color: grey;
+  }
+}
 
 ul {
   width: 60%;
@@ -23,14 +30,24 @@ ul {
 
 li {
 
-  display: flex;
-  gap: 20px;
   list-style-type: none;
   background-color: white;
   border-radius: 10px;
   padding: 20px 25px;
   margin-bottom: 25px;
   box-shadow: 3px 2px 3px grey;
+
+  .content {
+    display: flex;
+    gap: 20px;
+
+  }
+
+  .footer {
+    text-align: right;
+    height: 25px;
+  }
+  
 
   h3 {
     margin: 15px 0 20px 0;

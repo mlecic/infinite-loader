@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { FavoritesState } from '../state/favorites.reducer';
@@ -14,7 +15,7 @@ export class DashboardComponent implements OnInit {
   favorites$: Observable<Photo[]>;
   favorites: Photo[] = [];
 
-  constructor(private store: Store<{ favorites: FavoritesState }>) {
+  constructor(private router: Router, private store: Store<{ favorites: FavoritesState }>) {
     this.favorites$ = this.store.select(state => state.favorites.favorites);
   }
 
@@ -22,6 +23,10 @@ export class DashboardComponent implements OnInit {
     this.favorites$.subscribe(favorites => {
       this.favorites = favorites;
     });
+  }
+
+  goToList() {
+    this.router.navigateByUrl('/list');
   }
 
   removeFavoriteFromStore(favorite: Photo) {

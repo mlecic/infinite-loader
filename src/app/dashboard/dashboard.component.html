@@ -1,14 +1,23 @@
-<a routerLink="/list">List</a>
+<div class="title">
+  <h1>Dashboard</h1>
+  <button (click)="goToList()">View Photos</button>
+</div>
+<h2>Favorite photos</h2>
 <ul>
   <li *ngFor="let favorite of favorites">
-      <div class="image">
-        <img [src]="favorite.thumbnailUrl">
+      <div class="content">
+        <div class="image">
+          <img [src]="favorite.thumbnailUrl">
+        </div>
+        <div class="info">
+          <h3>Title: {{ favorite.title }}</h3>
+          <p>Album ID: <strong>{{ favorite.albumId }}</strong></p>
+          <p>ID: <strong>{{ favorite.id }}</strong></p>
+        </div>
       </div>
-      <div class="info">
-        <h3>Title: {{ favorite.title }}</h3>
-        <p>Album ID: <strong>{{ favorite.albumId }}</strong></p>
-        <p>ID: <strong>{{ favorite.id }}</strong></p>
+      <div class="footer">
+        <button (click)="removeFavoriteFromStore(favorite)">&minus; Remove</button>
       </div>
-      <button (click)="removeFavoriteFromStore(favorite)">Remove</button>
   </li>
 </ul>
+<p class="noData" *ngIf="!favorites.length">No favorites found.</p>
