@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 // Store
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools'; 
 import { favoritesReducer } from './state/favorites.reducer';
 
 // Components
@@ -22,6 +23,9 @@ import { ListComponent } from './list/list.component';
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot({ favorites: favoritesReducer}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+    }),
     HttpClientModule
   ],
   providers: [],
