@@ -1,6 +1,9 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { PhotosService, Photo } from '../photos.service';
+import { FavoritesState } from '../state/favorites.reducer';
+import { addFavorite } from '../state/favorites.actions';
 
 const MARGINS_OFFSET = 50;
 @Component({
@@ -12,7 +15,7 @@ export class ListComponent implements OnInit {
 
   photos: Photo[] = [];
 
-  constructor(private router: Router, private photosService: PhotosService) {}
+  constructor(private router: Router, private store: Store<{ favorites: FavoritesState }>, private photosService: PhotosService) {}
 
   ngOnInit(): void {
     // Get initial photos on page load
@@ -36,6 +39,10 @@ export class ListComponent implements OnInit {
 
   goBack() {
     this.router.navigateByUrl("/");
+  }
+
+  addFavoriteToStore(favorite: Photo) {
+    this.store.dispatch(addFavorite({ favorite: favorite }));
   }
 
 }

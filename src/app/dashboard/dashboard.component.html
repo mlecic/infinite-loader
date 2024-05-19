@@ -1,2 +1,14 @@
-<p>dashboard works!</p>
 <a routerLink="/list">List</a>
+<ul>
+  <li *ngFor="let favorite of favorites">
+      <div class="image">
+        <img [src]="favorite.thumbnailUrl">
+      </div>
+      <div class="info">
+        <h3>Title: {{ favorite.title }}</h3>
+        <p>Album ID: <strong>{{ favorite.albumId }}</strong></p>
+        <p>ID: <strong>{{ favorite.id }}</strong></p>
+      </div>
+      <button (click)="removeFavoriteFromStore(favorite)">Remove</button>
+  </li>
+</ul>

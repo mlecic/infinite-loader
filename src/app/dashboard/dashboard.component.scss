@@ -1,0 +1,40 @@
+ul {
+  width: 60%;
+  margin: 25px;
+  padding: 0;
+}
+
+li {
+
+  display: flex;
+  gap: 20px;
+  list-style-type: none;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px 25px;
+  margin-bottom: 25px;
+  box-shadow: 3px 2px 3px grey;
+
+  h3 {
+    margin: 15px 0 20px 0;
+  }
+
+  img {
+      width: 100px;
+      border-radius: 10px;
+  }
+
+  .info {
+    flex: 1 1 200px;
+  }
+
+}
+
+button {
+  background-color: darkcyan;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 20px;
+  cursor: pointer;
+}
