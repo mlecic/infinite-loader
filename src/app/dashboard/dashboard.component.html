@@ -1,23 +1,27 @@
-<div class="title">
-  <h1>Dashboard</h1>
-  <button (click)="goToList()">View Photos</button>
+<div class="page">
+  <div class="title">
+    <h1>Dashboard</h1>
+    <button (click)="goToList()">View Photos</button>
+  </div>
+  <div class="list">
+    <h2>Favorite photos</h2>
+    <ul>
+      <li *ngFor="let favorite of favorites">
+          <div class="content">
+            <div class="image">
+              <img [src]="favorite.thumbnailUrl">
+            </div>
+            <div class="info">
+              <h3>Title: {{ favorite.title }}</h3>
+              <p>Album ID: <strong>{{ favorite.albumId }}</strong></p>
+              <p>ID: <strong>{{ favorite.id }}</strong></p>
+            </div>
+          </div>
+          <div class="footer">
+            <button (click)="removeFavoriteFromStore(favorite)">&minus; Remove</button>
+          </div>
+      </li>
+    </ul>
+    <p class="noData" *ngIf="!favorites.length">No favorites found.</p>
+  </div>
 </div>
-<h2>Favorite photos</h2>
-<ul>
-  <li *ngFor="let favorite of favorites">
-      <div class="content">
-        <div class="image">
-          <img [src]="favorite.thumbnailUrl">
-        </div>
-        <div class="info">
-          <h3>Title: {{ favorite.title }}</h3>
-          <p>Album ID: <strong>{{ favorite.albumId }}</strong></p>
-          <p>ID: <strong>{{ favorite.id }}</strong></p>
-        </div>
-      </div>
-      <div class="footer">
-        <button (click)="removeFavoriteFromStore(favorite)">&minus; Remove</button>
-      </div>
-  </li>
-</ul>
-<p class="noData" *ngIf="!favorites.length">No favorites found.</p>

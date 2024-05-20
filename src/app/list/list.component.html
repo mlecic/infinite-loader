@@ -1,21 +1,25 @@
-<div class="title">
-  <h1>Photos</h1>
-  <button (click)="goBack()">&larr; Go Back</button>
+<div class="page">
+  <div class="title">
+    <h1>Photos</h1>
+    <button (click)="goBack()">&larr; Go Back</button>
+  </div>
+  <div class="list">
+    <ul>
+      <li *ngFor="let photo of photos">
+        <div class="content">
+          <div class="image">
+            <img [src]="photo.thumbnailUrl">
+          </div>
+          <div class="info">
+            <h3>Title: {{ photo.title }}</h3>
+            <p>Album ID: <strong>{{ photo.albumId }}</strong></p>
+            <p>ID: <strong>{{ photo.id }}</strong></p>
+          </div>
+        </div>
+        <div class="footer">
+          <button (click)="addFavoriteToStore(photo)">&plus; Add to favorites</button>
+        </div>  
+      </li>
+    </ul>
+  </div>
 </div>
-<ul>
-  <li *ngFor="let photo of photos">
-    <div class="content">
-      <div class="image">
-        <img [src]="photo.thumbnailUrl">
-      </div>
-      <div class="info">
-        <h3>Title: {{ photo.title }}</h3>
-        <p>Album ID: <strong>{{ photo.albumId }}</strong></p>
-        <p>ID: <strong>{{ photo.id }}</strong></p>
-      </div>
-    </div>
-    <div class="footer">
-      <button (click)="addFavoriteToStore(photo)">&plus; Add to favorites</button>
-    </div>  
-  </li>
-</ul>

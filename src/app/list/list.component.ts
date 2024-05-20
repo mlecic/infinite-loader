@@ -5,7 +5,6 @@ import { PhotosService, Photo } from '../photos.service';
 import { FavoritesState } from '../state/favorites.reducer';
 import { addFavorite } from '../state/favorites.actions';
 
-const MARGINS_OFFSET = 50;
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -32,7 +31,7 @@ export class ListComponent implements OnInit {
    */
   @HostListener('window:scroll', ['$event'])
   onScroll(): void {
-    if ((window.innerHeight + window.scrollY - MARGINS_OFFSET) >= document.body.offsetHeight) {
+    if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
       this.photosService.getPhotos();
     }
   }
