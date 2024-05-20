@@ -25,12 +25,8 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(!this.photosService.loadingCompleted) {
-      this.photos$.subscribe(photos => {
-        if(!photos.length) {
-          this.store.dispatch(getPhotos());
-        }
-      })
+    if(!this.photosService.loadingStarted && !this.photosService.loadingCompleted) {
+      this.store.dispatch(getPhotos());
     }
   }
 
@@ -39,7 +35,11 @@ export class ListComponent implements OnInit {
    */
   @HostListener('window:scroll', ['$event'])
   onScroll(): void {
-    if (!this.photosService.loadingCompleted && Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+    if (
+        this.photosService.loadingStarted && 
+        !this.photosService.loadingCompleted && 
+        Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight
+      ) {
       this.store.dispatch(getPhotos());
     }
   }

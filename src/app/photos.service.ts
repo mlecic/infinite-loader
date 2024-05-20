@@ -10,6 +10,7 @@ const BASE_URL = "https://jsonplaceholder.typicode.com/albums/1/photos";
 export class PhotosService {
 
   url: string | null = null;
+  loadingStarted = false;
   loadingCompleted = false;
 
   constructor(private http: HttpClient) { }

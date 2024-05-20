@@ -14,8 +14,7 @@ export class PhotosEffects {
       mergeMap(() => this.photosService.getPhotos().pipe(
         map(response => {
           const nextUrl = this.parseLinkHeader(response.headers.get('Link'));
-          this.photosService.loadingCompleted = !nextUrl;
-          this.photosService.url = nextUrl;
+          this.manageDataLoading(nextUrl);
           return getPhotosSuccess({ photos: response.body as Photo[] })
         }),
         // catchError(error => of(loadPhotosFailure({ error })))
@@ -28,11 +27,26 @@ export class PhotosEffects {
     private photosService: PhotosService
   ) {}
 
+  /**
+   * This method converts Link header into usable next link
+   * @param header Expects header string for parsing
+   * @returns 
+   */
   private parseLinkHeader(header: string | null): string | null {
     if (!header) return null;
     
     const parsedLink = parseLinkHeader(header);
     const nextLink = parsedLink?.['next']?.url;
     return nextLink ? nextLink : null;
+  }
+
+  /**
+   * This method manages data loading process
+   * @param nextUrl Expects nextUrl string which will be saved for next data load
+   */
+  private manageDataLoading(nextUrl: string | null): void {
+    this.photosService.loadingStarted = true;
+    this.photosService.loadingCompleted = !nextUrl;
+    this.photosService.url = nextUrl;
   }
 }
