@@ -5,8 +5,11 @@ import { HttpClientModule } from '@angular/common/http';
 
 // Store
 import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools'; 
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { photosReducer } from './state/photos.reducer';
 import { favoritesReducer } from './state/favorites.reducer';
+import { PhotosEffects } from './state/photos.effects'; 
 
 // Components
 import { AppComponent } from './app.component';
@@ -22,7 +25,8 @@ import { ListComponent } from './list/list.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({ favorites: favoritesReducer}),
+    StoreModule.forRoot({ photos: photosReducer, favorites: favoritesReducer}),
+    EffectsModule.forRoot([PhotosEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
     }),

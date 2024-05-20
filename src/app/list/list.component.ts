@@ -1,9 +1,13 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { PhotosService, Photo } from '../photos.service';
+import { PhotosState } from '../state/photos.reducer';
 import { FavoritesState } from '../state/favorites.reducer';
+import { getPhotos, markAsFavorite } from '../state/photos.actions';
 import { addFavorite } from '../state/favorites.actions';
+import { Observable } from 'rxjs';
+import { Photo } from '../photos.model';
+import { PhotosService } from '../photos.service';
 
 @Component({
   selector: 'app-list',
@@ -12,27 +16,31 @@ import { addFavorite } from '../state/favorites.actions';
 })
 export class ListComponent implements OnInit {
 
-  photos: Photo[] = [];
+  photos$: Observable<Photo[]>;
+  loading$: Observable<boolean>;
 
-  constructor(private router: Router, private store: Store<{ favorites: FavoritesState }>, private photosService: PhotosService) {}
+  constructor(private router: Router, private store: Store<{ photos: PhotosState, favorites: FavoritesState }>, private photosService: PhotosService) {
+    this.photos$ = this.store.select(state => state.photos.photos);
+    this.loading$ = this.store.select(state => state.photos.loading);
+  }
 
   ngOnInit(): void {
-    // Get initial photos on page load
-    this.photosService.getPhotos();
-
-    // Subscribe to new photos data
-    this.photosService.photos$.subscribe(photos => {
-      this.photos = photos;
-    })
+    if(!this.photosService.loadingCompleted) {
+      this.photos$.subscribe(photos => {
+        if(!photos.length) {
+          this.store.dispatch(getPhotos());
+        }
+      })
+    }
   }
 
   /**
-   * Load more photos when scrolled to the bottom
+   * Load more photos when scrolled to the bottom and if nextUrl is not null
    */
   @HostListener('window:scroll', ['$event'])
   onScroll(): void {
-    if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-      this.photosService.getPhotos();
+    if (!this.photosService.loadingCompleted && Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      this.store.dispatch(getPhotos());
     }
   }
 
@@ -41,7 +49,8 @@ export class ListComponent implements OnInit {
   }
 
   addFavoriteToStore(favorite: Photo) {
-    this.store.dispatch(addFavorite({ favorite: favorite }));
+    this.store.dispatch(addFavorite({ favorite }));
+    this.store.dispatch(markAsFavorite({ favorite, value: true }));
   }
 
 }

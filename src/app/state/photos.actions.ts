@@ -7,5 +7,10 @@ export const getPhotos = createAction(
 
 export const getPhotosSuccess = createAction(
   '[Photos List] Load Photos Success',
-  props<{ photos: Photo[], nextUrl: string | null }>()
+  props<{ photos: Photo[] }>()
+);
+
+export const markAsFavorite = createAction(
+  '[Photos List] Mark As Favorite',
+  props<{ favorite: Photo, value: boolean }>()
 );

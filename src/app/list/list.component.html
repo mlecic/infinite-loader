@@ -5,7 +5,7 @@
   </div>
   <div class="list">
     <ul>
-      <li *ngFor="let photo of photos">
+      <li *ngFor="let photo of photos$ | async">
         <div class="content">
           <div class="image">
             <img [src]="photo.thumbnailUrl">
@@ -17,9 +17,12 @@
           </div>
         </div>
         <div class="footer">
-          <button (click)="addFavoriteToStore(photo)">&plus; Add to favorites</button>
+          <button (click)="addFavoriteToStore(photo)" [disabled]="photo.favorite">&plus; Add to favorites</button>
         </div>  
       </li>
     </ul>
+  </div>
+  <div *ngIf="loading$ | async">
+    <p>Loading...</p>
   </div>
 </div>

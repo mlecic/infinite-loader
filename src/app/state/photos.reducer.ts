@@ -1,19 +1,17 @@
 import { createReducer, on } from '@ngrx/store';
-import { getPhotos, getPhotosSuccess } from './photos.actions';
+import { getPhotos, getPhotosSuccess, markAsFavorite } from './photos.actions';
 import { Photo } from '../photos.model';
 
 export interface PhotosState {
   photos: Photo[];
   loading: boolean;
   error: any;
-  nextUrl: string | null;
 }
 
 export const initialState: PhotosState = {
   photos: [],
   loading: false,
   error: null,
-  nextUrl: null
 };
 
 export const photosReducer = createReducer(
@@ -22,10 +20,17 @@ export const photosReducer = createReducer(
     ...state,
     loading: true
   })),
-  on(getPhotosSuccess, (state, { photos, nextUrl }) => ({
+  on(getPhotosSuccess, (state, { photos }) => ({
     ...state,
-    posts: [...state.photos, ...photos],
-    loading: false,
-    nextUrl
+    photos: [...state.photos, ...photos],
+    loading: false
   })),
+  on(markAsFavorite, (state, { favorite, value }) => ({
+    ...state,
+    photos: state.photos.map(photo => {
+      if(photo.id === favorite.id) {
+        return { ...photo, favorite: value }
+      } else return photo;
+    }),
+  }))
 );

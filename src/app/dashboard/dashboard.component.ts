@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { FavoritesState } from '../state/favorites.reducer';
 import { removeFavorite } from '../state/favorites.actions';
+import { markAsFavorite } from '../state/photos.actions';
 import { Photo } from '../photos.model';
 
 @Component({
@@ -30,6 +31,7 @@ export class DashboardComponent implements OnInit {
   }
 
   removeFavoriteFromStore(favorite: Photo) {
-    this.store.dispatch(removeFavorite({ favorite: favorite }));
+    this.store.dispatch(removeFavorite({ favorite }));
+    this.store.dispatch(markAsFavorite({ favorite, value: false }));
   }
 }

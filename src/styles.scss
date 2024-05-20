@@ -37,6 +37,12 @@ button {
   &:hover {
     background-color: goldenrod;
   }
+
+  &:disabled {
+    background-color: lightgrey;
+    color: grey;
+    cursor: not-allowed;
+  }
 }
 
 li {
@@ -46,7 +52,7 @@ li {
   border-radius: 10px;
   padding: 20px 25px;
   margin-bottom: 25px;
-  box-shadow: 3px 2px 3px grey;
+  box-shadow: 3px 2px 3px lightgrey;
 
   .content {
     display: flex;
