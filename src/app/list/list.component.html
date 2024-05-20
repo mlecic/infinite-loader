@@ -17,6 +17,7 @@
           </div>
         </div>
         <div class="footer">
+          <span *ngIf="photo.favorite" class="saved">Saved</span>
           <button (click)="addFavoriteToStore(photo)" [disabled]="photo.favorite">&plus; Add to favorites</button>
         </div>  
       </li>
