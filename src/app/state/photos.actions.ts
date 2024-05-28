@@ -6,7 +6,7 @@ export const getPhotos = createAction(
 );
 
 export const getPhotosSuccess = createAction(
-  '[Photos List] Load Photos Success',
+  '[Photos API] Load Photos Success',
   props<{ photos: Photo[] }>()
 );
 
