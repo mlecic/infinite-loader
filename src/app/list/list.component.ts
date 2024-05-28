@@ -1,9 +1,10 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { PhotosState } from '../state/photos.reducer';
-import { FavoritesState } from '../state/favorites.reducer';
 import { getPhotos, markAsFavorite } from '../state/photos.actions';
+import { PhotosState } from '../state/photos.reducer';
+import { selectPhotos, selectPhotosLoading } from '../state/photos.selectors';
+import { FavoritesState } from '../state/favorites.reducer';
 import { addFavorite } from '../state/favorites.actions';
 import { Observable } from 'rxjs';
 import { Photo } from '../photos.model';
@@ -20,8 +21,8 @@ export class ListComponent implements OnInit {
   loading$: Observable<boolean>;
 
   constructor(private router: Router, private store: Store<{ photos: PhotosState, favorites: FavoritesState }>, private photosService: PhotosService) {
-    this.photos$ = this.store.select(state => state.photos.photos);
-    this.loading$ = this.store.select(state => state.photos.loading);
+    this.photos$ = this.store.select(selectPhotos);
+    this.loading$ = this.store.select(selectPhotosLoading);
   }
 
   ngOnInit(): void {

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { FavoritesState } from '../state/favorites.reducer';
 import { removeFavorite } from '../state/favorites.actions';
+import { selectFavorites } from '../state/favorites.selectors';
 import { markAsFavorite } from '../state/photos.actions';
 import { Photo } from '../photos.model';
 
@@ -17,7 +18,7 @@ export class DashboardComponent implements OnInit {
   favorites: Photo[] = [];
 
   constructor(private router: Router, private store: Store<{ favorites: FavoritesState }>) {
-    this.favorites$ = this.store.select(state => state.favorites.favorites);
+    this.favorites$ = this.store.select(selectFavorites);
   }
 
   ngOnInit(): void {
