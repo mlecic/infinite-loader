@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { parseLinkHeader } from '@web3-storage/parse-link-header';
 import { PhotosService } from '../photos.service';
-import { getPhotos, getPhotosSuccess } from './photos.actions';
+import { getPhotos, getPhotosSuccess, getPhotosFailure } from './photos.actions';
 import { Photo } from '../photos.model';
 import { map, mergeMap, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable()
 export class PhotosEffects {
@@ -17,7 +18,7 @@ export class PhotosEffects {
           this.manageDataLoading(nextUrl);
           return getPhotosSuccess({ photos: response.body as Photo[] })
         }),
-        // catchError(error => of(loadPhotosFailure({ error })))
+        catchError(error => of(getPhotosFailure({ message: error.message })))
       ))
     )
   );

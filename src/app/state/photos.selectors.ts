@@ -15,5 +15,5 @@ export const selectPhotosLoading = createSelector(
 
 export const selectPhotosError = createSelector(
   selectPhotosState,
-  (photosState) => photosState.error
+  (photosState) => photosState.errorMessage
 );

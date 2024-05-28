@@ -10,6 +10,11 @@ export const getPhotosSuccess = createAction(
   props<{ photos: Photo[] }>()
 );
 
+export const getPhotosFailure = createAction(
+  '[Photos API] Load Photos Failure',
+  props<{ message: string }>()
+);
+
 export const markAsFavorite = createAction(
   '[Photos List] Mark As Favorite',
   props<{ favorite: Photo, value: boolean }>()

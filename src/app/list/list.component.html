@@ -26,4 +26,7 @@
   <div *ngIf="loading$ | async">
     <p>Loading...</p>
   </div>
+  <div *ngIf="error$ | async" class="error">
+    <p>{{ error$ | async }}</p>
+  </div>
 </div>

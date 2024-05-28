@@ -87,6 +87,13 @@ li {
 
 }
 
+.error {
+  background-color: $error;
+  color: $secondary;
+  padding: 2rem;
+  border-radius: 5px;
+}
+
 @media screen and (max-width: 960px) {
   .page {
     width: 100%;
