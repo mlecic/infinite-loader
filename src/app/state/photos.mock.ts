@@ -4,6 +4,7 @@ export const photo1 = {
   title: 'Test Photo 1',
   url: '',
   thumbnailUrl: '',
+  favorite: true
 }
 
 export const photo2 = {
@@ -12,4 +13,5 @@ export const photo2 = {
   title: 'Test Photo 2',
   url: '',
   thumbnailUrl: '',
+  favorite: true
 }
